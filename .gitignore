@@ -1,0 +1,14 @@
+# Security & Secrets
+.env
+*.env
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# EDA Build Artifacts
+*.vvp
+*.o
+
+# Keep waveform for demonstration if desired, or ignore large vcd
+# output/*.vcd
