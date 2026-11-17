@@ -12,3 +12,7 @@ __pycache__/
 
 # Keep waveform for demonstration if desired, or ignore large vcd
 # output/*.vcd
+
+# Private Study & Interview Cheat Sheet
+INTERVIEW_PREP_GUIDE.md
+
