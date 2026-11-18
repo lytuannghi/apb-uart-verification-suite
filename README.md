@@ -1,4 +1,4 @@
-# 🚀 Automated APB UART IP Core & Design Verification (DV) Suite
+# Automated APB UART IP Core & Design Verification (DV) Suite
 
 [![Simulation Status](https://img.shields.io/badge/Simulation-100%25%20PASSED-brightgreen.svg?style=for-the-badge&logo=checkmarx)](https://github.com/lytuannghi/apb-uart-verification-suite)
 [![Bus Protocol](https://img.shields.io/badge/Protocol-AMBA%203%20APB-blue.svg?style=for-the-badge)](https://developer.arm.com/documentation/ihi0024/latest/)
@@ -12,7 +12,7 @@ Designed and implemented by **Lý Tuấn Nghi ([@lytuannghi](https://github.com/
 
 ---
 
-## 📌 Executive Summary
+## Executive Summary
 
 Modern semiconductor IC design and verification require rigorous adherence to bus protocols, comprehensive corner-case validation, and robust test planning. This repository demonstrates:
 1. **Frontend RTL Design:** Fully synthesizable IP module featuring independent 16-deep TX/RX FIFOs, programmable 16-bit baudrate generator, and complete AMBA 3 APB slave interface.
@@ -21,7 +21,7 @@ Modern semiconductor IC design and verification require rigorous adherence to bu
 
 ---
 
-## 👥 The 6-Agent Multi-Agent Engineering Architecture
+## The 6-Agent Multi-Agent Engineering Architecture
 
 ```mermaid
 flowchart TD
@@ -36,12 +36,12 @@ flowchart TD
     A3 & A4 & A5 --> A6["Agent 6: EDA Simulation & Self-Healing Lead\n- Icarus Verilog & VVP Tool Orchestration\n- Automated Bug Isolation & Feedback Repair"]
 
     A6 -->|Simulation FAIL (Captured in logs)| A3
-    A6 -->|100% Functional Coverage PASS| Out["🏆 Production-Grade Deliverables:\n- Golden RTL Core (rtl/)\n- Complete Verification Suite (tb/)\n- Simulation Waveforms (waveform.vcd)"]
+    A6 -->|100% Functional Coverage PASS| Out[" Production-Grade Deliverables:\n- Golden RTL Core (rtl/)\n- Complete Verification Suite (tb/)\n- Simulation Waveforms (waveform.vcd)"]
 ```
 
 ---
 
-## 🏗️ Hardware Architecture & Register Map
+## Hardware Architecture & Register Map
 
 ```mermaid
 flowchart LR
@@ -92,28 +92,28 @@ flowchart LR
 | Offset | Register | Type | Width | Description |
 | :---: | :---: | :---: | :---: | :--- |
 | `0x00` | **UART_DATA** | R/W | 8-bit | Write: Pushes byte into TX FIFO. Read: Pops byte from RX FIFO. |
-| `0x04` | **UART_STATUS**| RO  | 8-bit | `[0]` TX Empty, `[1]` TX Full, `[2]` RX Ready, `[3]` RX Full, `[4]` TX Busy, `[5]` Overrun Error. |
-| `0x08` | **UART_CTRL**  | R/W | 8-bit | `[0]` TX Enable, `[1]` RX Enable, `[4]` Loopback Mode, `[7]` Soft Reset. |
-| `0x0C` | **UART_BAUD**  | R/W | 16-bit| 16-bit Baudrate Clock Divisor ($Divisor = \frac{F_{clk}}{16 \times Baud}$). |
+| `0x04` | **UART_STATUS**| RO | 8-bit | `[0]` TX Empty, `[1]` TX Full, `[2]` RX Ready, `[3]` RX Full, `[4]` TX Busy, `[5]` Overrun Error. |
+| `0x08` | **UART_CTRL** | R/W | 8-bit | `[0]` TX Enable, `[1]` RX Enable, `[4]` Loopback Mode, `[7]` Soft Reset. |
+| `0x0C` | **UART_BAUD** | R/W | 16-bit| 16-bit Baudrate Clock Divisor ($Divisor = \frac{F_{clk}}{16 \times Baud}$). |
 
 ---
 
-## 📊 Verification Plan (vPlan) & Test Results
+## Verification Plan (vPlan) & Test Results
 
 All test cases are self-checking and executed automatically via the verification testbench:
 
 | Test ID | Verification Target | Stimulus / Test Scenario | Result | Status |
 | :---: | :--- | :--- | :---: | :---: |
-| **TC1** | Power-on Reset | Assert `PRESETn` low, verify default register reset values | `STATUS = 0x01` (TX Empty) | **PASS** ✅ |
-| **TC2** | Baudrate Divisor Config | Write & Read back divisor values across register bus | `BAUD_DIV = 0x0002` | **PASS** ✅ |
-| **TC3** | Loopback Data Transfer | Transmit stream (`0xA5`, `0x5A`, `0xC3`, `0x3C`) via internal loopback | 100% Scoreboard Match | **PASS** ✅ |
-| **TC4A**| FIFO Full Flag | Fill 16 consecutive bytes into TX FIFO without reading | `TX_FULL` asserts at 16th | **PASS** ✅ |
-| **TC4B**| FIFO Overflow Stress | Attempt 17th write to full FIFO | Handled safely, Overrun flag set | **PASS** ✅ |
-| **TC5** | Interrupt Signaling | Monitor `UART_INT` assertion on buffer empty event | Signal correctly pulsed | **PASS** ✅ |
+| **TC1** | Power-on Reset | Assert `PRESETn` low, verify default register reset values | `STATUS = 0x01` (TX Empty) | **PASS** |
+| **TC2** | Baudrate Divisor Config | Write & Read back divisor values across register bus | `BAUD_DIV = 0x0002` | **PASS** |
+| **TC3** | Loopback Data Transfer | Transmit stream (`0xA5`, `0x5A`, `0xC3`, `0x3C`) via internal loopback | 100% Scoreboard Match | **PASS** |
+| **TC4A**| FIFO Full Flag | Fill 16 consecutive bytes into TX FIFO without reading | `TX_FULL` asserts at 16th | **PASS** |
+| **TC4B**| FIFO Overflow Stress | Attempt 17th write to full FIFO | Handled safely, Overrun flag set | **PASS** |
+| **TC5** | Interrupt Signaling | Monitor `UART_INT` assertion on buffer empty event | Signal correctly pulsed | **PASS** |
 
 ---
 
-## 📂 Repository File Structure
+## Repository File Structure
 
 ```
 apb-uart-verification-suite/
@@ -145,7 +145,7 @@ apb-uart-verification-suite/
 
 ---
 
-## ⚡ Quickstart: Run in 1 Command
+## Quickstart: Run in 1 Command
 
 ### Prerequisites
 - **Icarus Verilog & VVP** (open-source Verilog simulator)
@@ -165,7 +165,7 @@ gtkwave output/waveform.vcd
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Lý Tuấn Nghi**
 - **GitHub:** [@lytuannghi](https://github.com/lytuannghi)
