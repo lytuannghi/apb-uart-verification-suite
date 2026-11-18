@@ -1,18 +1,25 @@
 # Security & Secrets
 .env
 *.env
+client_secret.json
+*.json.bak
 
-# Python Cache
+# Python Cache & Scripts
 __pycache__/
 *.pyc
+multi_agent_chat.py
+youtube_auto/
 
-# EDA Build Artifacts
+# EDA Build Artifacts & Waveforms
 *.vvp
 *.o
+*.vcd
+output/
+test.v
+schematic_*.html
 
-# Keep waveform for demonstration if desired, or ignore large vcd
-# output/*.vcd
-
-# Private Study & Interview Cheat Sheet
+# Private Study Guides & Local Handbooks
 INTERVIEW_PREP_GUIDE.md
-
+giaithichdoan.md
+GIAI_THICH_*.md
+docs/multi_agent_architecture_guide.md
