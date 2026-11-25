@@ -7,8 +7,18 @@ from google.genai import types
 
 load_dotenv()
 
-api_key = os.getenv("GEMINI_API_KEY")
-client = genai.Client(api_key=api_key)
+_client = None
+
+
+def _get_client():
+    global _client
+    if _client is None:
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise RuntimeError("GEMINI_API_KEY is not set")
+        _client = genai.Client(api_key=api_key)
+    return _client
+
 
 # List of models in order of priority / fallback
 CANDIDATE_MODELS = [
@@ -19,6 +29,7 @@ CANDIDATE_MODELS = [
 
 def generate_with_fallback(prompt: str, system_instruction: str, temperature: float = 0.2) -> str:
     """Generate content with automatic fallback across models if one is busy (503/429)."""
+    client = _get_client()
     last_err = None
     for model_name in CANDIDATE_MODELS:
         try:

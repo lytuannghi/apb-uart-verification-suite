@@ -138,9 +138,11 @@ apb-uart-verification-suite/
 │   ├── eda_runner.py            # Agent 6: Icarus Verilog Automation
 │   └── gemini_client.py         # Gemini API engine with fallback
 ├── output/
-│   └── waveform.vcd             # Dumped simulation waveform
-├── run_flow.py                  # One-click automated execution script
-└── README.md                    # Project documentation
+│   └── module.v                   # Reference synthesized module output (waveforms ignored)
+├── syn/                           # Synthesis SDC constraints, TCL script & RTL analyzer
+├── layout/                        # SkyWater 130nm GDSII stream + sweep-line DRC verifier
+├── run_flow.py                    # One-click verification runner (supports --offline)
+└── README.md                      # Project documentation
 ```
 
 ---
@@ -149,12 +151,16 @@ apb-uart-verification-suite/
 
 ### Prerequisites
 - **Icarus Verilog & VVP** (open-source Verilog simulator)
-- **Python 3.10+** (with `google-genai` and `python-dotenv`)
+- **Python 3.10+**
 
-### Execute Simulation Flow
+### Execute Simulation, RTL Audit & Layout DRC
 ```powershell
-# Run the complete 6-Agent Verification Pipeline
-python run_flow.py
+# Run deterministic RTL & self-checking verification (works without API key)
+python run_flow.py --offline
+
+# Run synthesis readiness check and physical GDSII DRC verification
+python syn/analyze_rtl.py
+python layout/scripts/verify_gds_drc.py layout/gds/apb_uart_top.gds --top apb_uart_top
 ```
 
 ### Inspect Waveforms

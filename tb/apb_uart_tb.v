@@ -182,8 +182,8 @@ module apb_uart_tb;
             apb_write(ADDR_DATA, {24'h0, test_payload[i]});
         end
 
-        // Wait for serial serialization & deserialization (baud_div=2 makes this fast)
-        #25000;
+        // Wait for 4 serial frames (baud_div=2 -> 6.4 us/char -> 25.6 us + margin)
+        #30000;
 
         // Read back bytes from RX FIFO and verify
         begin: LOOPBACK_CHECK

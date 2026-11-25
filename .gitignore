@@ -23,3 +23,7 @@ INTERVIEW_PREP_GUIDE.md
 giaithichdoan.md
 GIAI_THICH_*.md
 docs/multi_agent_architecture_guide.md
+
+sim/cocotb_build/
+results.xml
+*.xml
